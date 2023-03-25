@@ -6,6 +6,9 @@ run:
 build:
 	go build -ldflags "-X main.build=local"
 
+tidy:
+	go mod tidy
+	go mod vendor
 # ==============================================================================
 # Building containers
 
@@ -56,3 +59,5 @@ kind-restart:
 	kubectl rollout restart deployment service --namespace=service
 
 kind-update: all kind-load kind-restart
+
+kind-update-apply: all kind-load kind-apply
