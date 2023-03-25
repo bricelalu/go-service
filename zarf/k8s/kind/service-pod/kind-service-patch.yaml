@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service
+  namespace: service
+
+spec:
+  selector:
+    matchLabels:
+      app: service
+
+  replicas: 1
+  
+  strategy:
+    type: Recreate
+
+  template:
+    metadata:
+      labels:
+        app: service
+
+    spec:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+
+      containers:
+      - name: service-api
+        resources:
+          limits:
+            cpu: "2000m" # Up to 2 full cores
+          requests:
+            cpu: "1000m" # Use 1 full cores
